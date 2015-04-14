@@ -27,13 +27,15 @@ Game.prototype = {
             return;
         }
         this.started = true;
+        var self = this;
         this.nextFrame = requestAnimationFrame(function(time) {
-            this.run(time);
+            self.run(time);
         });
         return this;
     },
 
     run: function(time) {
+        var self = this;
         if(this.previousTime === 0) {
             // First frame only gets the time
             this.previousTime = time;
@@ -43,7 +45,6 @@ Game.prototype = {
             // Execute game logic in a callback so that it does not
             // prevent the animation frame from ending.
             // http://impactjs.com/forums/impact-engine/misuse-of-requestanimationframe
-            var self = this;
             setTimeout(function() {
                 self.entityList.update(time - self.previousTime);
             }, 0);
@@ -52,7 +53,7 @@ Game.prototype = {
         // Loop
         if(!this.stopped) {
             this.nextFrame = requestAnimationFrame(function(time) {
-                this.run(time);
+                self.run(time);
             });
         }
     },

@@ -3,7 +3,7 @@ var Game = function(options) {
         id: 'canvas'
     }, options);
 
-    this.canvas = document.getElementById(options.id);
+    this.canvas = document.getElementById(this.options.id);
     this.ctx = this.canvas.getContext('2d');
 
     Game.width = this.canvas.clientWidth;

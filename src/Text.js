@@ -1,5 +1,7 @@
 // attributes => https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_text#Styling_text
-var Text = function(text, position, attributes, alignment, anchor) {
+// TODO Find another name, this one is taken by https://developer.mozilla.org/en/docs/Web/API/Text
+// If someone has an idea, I'll take it :/
+var Text = function(text, position, attributes, alignment, anchor) { // jshint ignore:line
     this.text = text;
     this.position = position;
     this.attributes = attributes;

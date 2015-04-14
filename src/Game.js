@@ -6,14 +6,14 @@ var Game = function(options) {
     this.canvas = document.getElementById(this.options.id);
     this.ctx = this.canvas.getContext('2d');
 
-    Game.width = this.canvas.clientWidth;
-    Game.height = this.canvas.clientHeight;
+    this.width = this.canvas.clientWidth;
+    this.height = this.canvas.clientHeight;
 
     // Make sure the canvas is not distorded
-    this.canvas.width = Game.width;
-    this.canvas.height = Game.height;
+    this.canvas.width = this.width;
+    this.canvas.height = this.height;
 
-    this.entityList = new EntityList();
+    this.entityList = new EntityList(this);
     this.eventManager = new EventManager(this);
     this.previousTime = 0;
     this.stopped = false;
@@ -40,7 +40,7 @@ Game.prototype = {
             // First frame only gets the time
             this.previousTime = time;
         } else {
-            this.entityList.draw();
+            this.entityList.draw(this.ctx);
 
             // Execute game logic in a callback so that it does not
             // prevent the animation frame from ending.

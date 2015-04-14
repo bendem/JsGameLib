@@ -9,14 +9,14 @@ EntityList.prototype = {
         return this;
     },
 
-    update: function(name, time) {
+    update: function(time) {
         this.entities.forEach(function(entity) {
             entity.update(time, this.entities);
         }, this);
         return this;
     },
 
-    draw: function(name, ctx) {
+    draw: function(ctx) {
         ctx.clearRect(0, 0, this.game.width, this.game.height);
 
         // Draw shadows

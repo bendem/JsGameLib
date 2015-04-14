@@ -8,6 +8,40 @@ module.exports = function(grunt) {
 
         pkg: grunt.file.readJSON('package.json'),
 
+        jscs: {
+            options: {
+                disallowFunctionDeclarations: true,
+                disallowNewlineBeforeBlockStatements: true,
+                disallowSpacesInFunction: {
+                    beforeOpeningRoundBrace: true
+                },
+                disallowSpacesInNamedFunctionExpression: {
+                    beforeOpeningRoundBrace: true
+                },
+                disallowSpacesInsideParentheses: true,
+                disallowSpacesInsideParentheses: true,
+                disallowTrailingWhitespace: true,
+                requireBlocksOnNewline: true,
+                requireCamelCaseOrUpperCaseIdentifiers: true,
+                requireCapitalizedConstructors: true,
+                requireCommaBeforeLineBreak: true,
+                requireLineBreakAfterVariableAssignment: true,
+                requireLineFeedAtFileEnd: true,
+                requireSemicolons: true,
+                requireSpaceAfterBinaryOperators: true,
+                requireSpaceBeforeBinaryOperators: true,
+                safeContextKeyword: 'self',
+                validateIndentation: 4,
+                validateLineBreaks: 'LF',
+                validateParameterSeparator: ', ',
+                validateQuoteMarks: {
+                    mark: "'",
+                    escape: true
+                },
+            },
+            all: ['src/*.js']
+        },
+
         concat: {
             options: {
                 banner: '/* <%= pkg.name %> - <%= pkg.version %> */\n\'use strict\';\n'
@@ -45,41 +79,9 @@ module.exports = function(grunt) {
             all: ['dist/built.js']
         },
 
-        jscs: {
-            options: {
-                disallowFunctionDeclarations: true,
-                disallowNewlineBeforeBlockStatements: true,
-                disallowSpacesInFunction: {
-                    beforeOpeningRoundBrace: true
-                },
-                disallowSpacesInNamedFunctionExpression: {
-                    beforeOpeningRoundBrace: true
-                },
-                disallowSpacesInsideParentheses: true,
-                disallowSpacesInsideParentheses: true,
-                disallowTrailingWhitespace: true,
-                requireBlocksOnNewline: true,
-                requireCamelCaseOrUpperCaseIdentifiers: true,
-                requireCapitalizedConstructors: true,
-                requireCommaBeforeLineBreak: true,
-                requireLineBreakAfterVariableAssignment: true,
-                requireLineFeedAtFileEnd: true,
-                requireSemicolons: true,
-                requireSpaceAfterBinaryOperators: true,
-                requireSpaceBeforeBinaryOperators: true,
-                safeContextKeyword: 'self',
-                validateIndentation: 4,
-                validateLineBreaks: 'LF',
-                validateParameterSeparator: ', ',
-                validateQuoteMarks: {
-                    mark: "'",
-                    escape: true
-                },
-            },
-            all: ['src/*.js']
-        },
+        // TODO Maybe use uglify?
 
     });
 
-    grunt.registerTask('default', ['concat', 'jshint', 'jscs']);
+    grunt.registerTask('default', ['jscs', 'concat', 'jshint']);
 };

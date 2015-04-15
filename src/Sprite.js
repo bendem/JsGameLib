@@ -27,7 +27,7 @@ Sprite.prototype = {
         }
 
         ctx.drawImage(
-            this.sprite,
+            this.img,
             spritePart.position.x,
             spritePart.position.y,
             spritePart.position.width,

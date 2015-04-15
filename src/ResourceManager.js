@@ -19,13 +19,15 @@ ResourceManager.prototype = {
 
         // Save the insertion index
         var index = this.loading.length;
-        this.loading.push(resourcePath);
         var img = new Image();
+        this.loading.push({
+            path: resourcePath,
+            img: img
+        });
         var self = this;
         img.onload = function() {
             // Move loaded img from loading to loaded
-            self.loaded.push(resourcePath);
-            self.loading.splice(index, 1);
+            self.loaded.push(self.loading.splice(index, 1)[0]);
 
             // If nothing is loading and a callback is provided, let's call it
             if(self.loading.length === 0 && self.callback !== null) {
@@ -46,6 +48,14 @@ ResourceManager.prototype = {
                 obj: obj,
             };
         }
+    },
 
+    get: function(resourcePath) {
+        var res = search(this.loaded, 'path', resourcePath);
+        if(res) {
+            return res.img;
+        }
+        return null;
     }
+
 };

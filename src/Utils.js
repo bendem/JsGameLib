@@ -30,6 +30,15 @@ var merge = function(obj1, obj2) {
     return obj1;
 };
 
+var search = function(array, prop, value) {
+    for (var i = array.length - 1; i >= 0; i--) {
+        if(array[i][prop] === value) {
+            return array[i];
+        }
+    }
+    return null;
+};
+
 /**
  * Checks wether a number is between to other numbers.
  *

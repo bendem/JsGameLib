@@ -30,6 +30,15 @@ var merge = function(obj1, obj2) {
     return obj1;
 };
 
+/**
+ * Searches an array of objects for an object having the provided
+ * value for the provided property name.
+ *
+ * @param  Array  The array to search in
+ * @param  String The name of the property to check
+ * @param  Object The value of that property
+ * @return Object The object found or null if not found
+ */
 var search = function(array, prop, value) {
     for (var i = array.length - 1; i >= 0; i--) {
         if(array[i][prop] === value) {
@@ -54,10 +63,11 @@ var isBetween = function(x, x1, x2) {
 };
 
 /**
- * Do I need to explain random
- * @param  Number Min bound
- * @param  Number Max bound
- * @return Number The random
+ * Do I need to explain random?
+ *
+ * @param  Number Minimum bound
+ * @param  Number Maximim bound
+ * @return Number The random number generated
  */
 var random = function(min, max) {
     return Math.random() * (max - min) + min;
@@ -69,15 +79,7 @@ var random = function(min, max) {
 var emptyFunction = function() {};
 
 /**
- * A function that will throw an error about
- * unimplemented thing.
- */
-var unimplementedError = function() {
-    throw Error('unimplemented method');
-};
-
-/**
- * Return the sign of number.
+ * Returns the sign of a number.
  *
  * @param  Number The number you need the sign of
  * @return Number -1, 0 or 1
@@ -86,11 +88,12 @@ var sign = function(x) {
     return (0 < x) - (x < 0);
 };
 
+/**
+ * Returns the square of the passed number.
+ *
+ * @param  Number The number to square
+ * @return Number The squared number
+ */
 var square = function(x) {
     return x * x;
-};
-
-var linePath = function(ctx, start, end) {
-    ctx.moveTo(start.x, start.y);
-    ctx.lineTo(end.x, end.y);
 };

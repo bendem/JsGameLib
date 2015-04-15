@@ -24,8 +24,10 @@ var Game = function(options) {
 Game.prototype = {
 
     startWithResources: function(resources) {
-        for (var i = resources.length - 1; i >= 0; i--) {
-            this.resourceManager.load(resources[i]);
+        if(resources) {
+            for (var i = resources.length - 1; i >= 0; i--) {
+                this.resourceManager.load(resources[i]);
+            }
         }
         this.resourceManager.ready(this.start, this);
     },

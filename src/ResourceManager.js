@@ -1,3 +1,6 @@
+/**
+ * Creates a manager able to fetch assets before starting the game.
+ */
 var ResourceManager = function() {
     this.loading = [];
     this.loaded = [];
@@ -31,6 +34,7 @@ ResourceManager.prototype = {
 
             // If nothing is loading and a callback is provided, let's call it
             if(self.loading.length === 0 && self.callback !== null) {
+                this.done = true;
                 self.callback.func.call(self.callback.obj);
             }
         };
@@ -38,8 +42,13 @@ ResourceManager.prototype = {
     },
 
     ready: function(func, obj) {
+        if(this.done) {
+            // TODO Error?
+            return;
+        }
         if(this.loading.length === 0) {
             // Loading is done already
+            this.done = true;
             func.call(obj);
         } else {
             // Save callback for later

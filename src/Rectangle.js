@@ -14,8 +14,7 @@ extend(Rectangle, Entity, {
             this.topLeft.y,
             this.width,
             this.height
-        );
-        ctx.fill();
+        ).fill();
     },
 
     getBoundingBox: function() {

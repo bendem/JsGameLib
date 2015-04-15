@@ -1,14 +1,19 @@
-var Circle = function(center, radius, anchor) {
+var Circle = function(center, radius, attributes, anchor) {
     this.center = center;
     this.radius = radius;
+    this.attributes = attributes;
     this.anchor = anchor || Anchor.TopLeft;
 };
 
 extend(Circle, Entity, {
     draw: function(ctx) {
         ctx.beginPath();
-        ctx.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI);
-        ctx.fill();
+        merge(ctx, this.attributes).arc(
+            this.position.x,
+            this.position.y,
+            this.radius,
+            0, 2 * Math.PI
+        ).fill();
     },
 
     getBoundingBox: function() {

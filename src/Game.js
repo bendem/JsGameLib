@@ -4,7 +4,7 @@ var Game = function(options) {
     }, options);
 
     this.canvas = document.getElementById(this.options.id);
-    this.ctx = new CanvasWrapper(this.canvas.getContext('2d'));
+    this.ctx = this.canvas.getContext('2d');
 
     this.width = this.canvas.clientWidth;
     this.height = this.canvas.clientHeight;

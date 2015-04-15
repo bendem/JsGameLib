@@ -52,7 +52,6 @@ module.exports = function(grunt) {
                     'src/Vector.js',
                     'src/Point.js',
                     'src/Positions.js',
-                    'src/CanvasWrapper.js',
                     'src/Box.js',
                     'src/Entity.js',
                     'src/Rectangle.js',

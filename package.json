@@ -1,5 +1,9 @@
 {
   "name": "JsGameLib",
+  "author": "bendem",
+  "scripts": {
+    "prepublish": "grunt"
+  },
   "repository": "https://github.com/bendem/JsGameLib",
   "description": "Library to write quick canvas based games in javascript",
   "version": "0.0.1",

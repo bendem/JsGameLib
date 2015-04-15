@@ -61,7 +61,7 @@ module.exports = function(grunt) {
                     'src/EventManager.js',
                     'src/Game.js',
                 ],
-                dest: 'dist/built.js'
+                dest: 'dist/<%= pkg.name %>.js'
             }
         },
 
@@ -76,7 +76,7 @@ module.exports = function(grunt) {
                 latedef: true,
                 browser: true,
             },
-            all: ['dist/built.js']
+            all: ['dist/<%= pkg.name %>.js']
         },
 
         // TODO Maybe use uglify?

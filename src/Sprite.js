@@ -14,7 +14,7 @@ Sprite.prototype = {
             id: id,
             position: position,
             width: width,
-            height: heigh,
+            height: height,
         });
 
         return this;

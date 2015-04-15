@@ -30,12 +30,12 @@ Sprite.prototype = {
             this.img,
             spritePart.position.x,
             spritePart.position.y,
-            spritePart.position.width,
-            spritePart.position.height,
+            spritePart.width,
+            spritePart.height,
             position.x,
             position.y,
-            spritePart.position.width,
-            spritePart.position.height
+            spritePart.width,
+            spritePart.height
         );
         return this;
     },

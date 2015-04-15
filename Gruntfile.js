@@ -52,6 +52,7 @@ module.exports = function(grunt) {
                     'src/Vector.js',
                     'src/Point.js',
                     'src/Positions.js',
+                    'src/Sprite.js',
                     'src/ResourceManager.js',
                     'src/Box.js',
                     'src/Entity.js',

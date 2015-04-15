@@ -3,7 +3,7 @@
   "author": "bendem",
   "repository": "https://github.com/bendem/JsGameLib",
   "description": "Library to write quick canvas based games in javascript",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-concat": "^0.5.1",

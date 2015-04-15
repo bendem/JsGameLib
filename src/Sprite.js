@@ -9,6 +9,17 @@ var Sprite = function(img) {
 };
 
 Sprite.prototype = {
+    registerIds: function(array) {
+        for(var i = array.length - 1; i >= 0; i--) {
+            this.registerId(
+                array[i].id,
+                array[i].position,
+                array[i].width,
+                array[i].height
+            );
+        }
+    },
+
     registerId: function(id, position, width, height) {
         this.descriptors.push({
             id: id,

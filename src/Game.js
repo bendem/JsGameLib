@@ -13,6 +13,7 @@ var Game = function(options) {
     this.canvas.width = this.width;
     this.canvas.height = this.height;
 
+    this.resourceManager = new ResourceManager();
     this.entityList = new EntityList(this);
     this.eventManager = new EventManager(this);
     this.previousTime = 0;
@@ -21,6 +22,13 @@ var Game = function(options) {
 };
 
 Game.prototype = {
+
+    startWithResources: function(resources) {
+        for (var i = resources.length - 1; i >= 0; i--) {
+            this.resourceManager.load(resources[i]);
+        }
+        this.resourceManager.ready(this.start, this);
+    },
 
     start: function() {
         if(this.started) {

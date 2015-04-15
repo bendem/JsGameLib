@@ -52,6 +52,7 @@ module.exports = function(grunt) {
                     'src/Vector.js',
                     'src/Point.js',
                     'src/Positions.js',
+                    'src/ResourceManager.js',
                     'src/Box.js',
                     'src/Entity.js',
                     'src/Rectangle.js',
@@ -75,6 +76,8 @@ module.exports = function(grunt) {
                 undef: true,
                 latedef: true,
                 browser: true,
+                // TODO This is deprecated, remove it in the next jshint release
+                laxbreak: true,
             },
             all: ['dist/<%= pkg.name %>.js']
         },

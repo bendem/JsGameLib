@@ -23,6 +23,7 @@ var extend = function(clazz, parent, props) {
  * @return Object The object overriden
  */
 var merge = function(obj1, obj2) {
+    obj1 = obj1 || {};
     for(var name in obj2){
         obj1[name] = obj2[name];
     }

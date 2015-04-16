@@ -2,11 +2,10 @@
 // TODO Find another name, this one is taken by https://developer.mozilla.org/en/docs/Web/API/Text
 // If someone has an idea, I'll take it :/
 var Text = function(text, position, attributes, alignment, anchor) { // jshint ignore:line
+    Entity.call(this, position, anchor || Anchor.TopLeft);
     this.text = text;
-    this.position = position;
     this.attributes = attributes;
     this.alignment = alignment;
-    this.anchor = anchor || Anchor.TopLeft;
 };
 
 extend(Text, Entity, {

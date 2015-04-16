@@ -32,22 +32,30 @@ Sprite.prototype = {
     },
 
     draw: function(ctx, id, position) {
-        var spritePart = search(this.descriptors, 'id', id);
+        var spritePart = this.get(id);
         if(spritePart === null) {
             return this;
         }
+        return this.drawPart(ctx, spritePart, position);
+    },
 
+    // Use this if you don't want the lookup time
+    drawPart: function(ctx, part, position) {
         ctx.drawImage(
             this.img,
-            spritePart.position.x,
-            spritePart.position.y,
-            spritePart.width,
-            spritePart.height,
+            part.position.x,
+            part.position.y,
+            part.width,
+            part.height,
             position.x,
             position.y,
-            spritePart.width,
-            spritePart.height
+            part.width,
+            part.height
         );
         return this;
+    },
+
+    get: function(id) {
+        return search(this.descriptors, 'id', id);
     },
 };

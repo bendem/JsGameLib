@@ -1,8 +1,7 @@
 var Circle = function(center, radius, attributes, anchor) {
-    this.center = center;
+    Entity.call(this, center, anchor || Anchor.TopLeft);
     this.radius = radius;
     this.attributes = attributes;
-    this.anchor = anchor || Anchor.TopLeft;
 };
 
 extend(Circle, Entity, {

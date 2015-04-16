@@ -1,9 +1,8 @@
 var Rectangle = function(topLeft, width, height, attributes, anchor) {
-    this.topLeft = topLeft.clone();
+    Entity.call(this, topLeft, anchor || Anchor.TopLeft);
     this.width = width;
     this.height = height;
     this.attributes = attributes;
-    this.anchor = anchor || Anchor.TopLeft;
 };
 
 extend(Rectangle, Entity, {

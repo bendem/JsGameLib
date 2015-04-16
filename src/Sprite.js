@@ -18,6 +18,8 @@ Sprite.prototype = {
                 array[i].height
             );
         }
+
+        return this;
     },
 
     registerId: function(id, position, width, height) {

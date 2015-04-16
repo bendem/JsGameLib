@@ -98,6 +98,7 @@ Game.prototype = {
                 this
             );
         }
+        return this;
     }
 
 };

@@ -21,6 +21,8 @@ var Game = function(options) {
     this.started = false;
 };
 
+Game.debug = false;
+
 Game.prototype = {
 
     startWithResources: function(resources) {

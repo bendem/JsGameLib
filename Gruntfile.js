@@ -75,7 +75,6 @@ module.exports = function(grunt) {
                 freeze: true,
                 futurehostile: true,
                 undef: true,
-                latedef: true,
                 browser: true,
                 // TODO This is deprecated, remove it in the next jshint release
                 laxbreak: true,

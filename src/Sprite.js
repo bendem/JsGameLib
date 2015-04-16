@@ -65,14 +65,13 @@ Sprite.prototype = {
             // Text shadow
             ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
             ctx.beginPath();
-            var w = ctx.measureText(part.id).width;
             ctx.rect(position.x, position.y, w + 10, 20);
             ctx.fill();
             // Name
             ctx.fillStyle = '#eee';
             ctx.textAlign = 'center';
             ctx.font = '15px';
-            ctx.fillText(part.id, position.x + w/2 + 5, position.y + 15);
+            ctx.fillText(part.id, position.x + w / 2 + 5, position.y + 15);
             ctx.restore();
         }
         return this;

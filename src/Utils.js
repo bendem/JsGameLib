@@ -111,7 +111,7 @@ var arrayRemove = function(array, elem) {
         array.splice(index, 1);
     }
     return array;
-}
+};
 
 /**
  * Y u read this?

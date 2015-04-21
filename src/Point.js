@@ -21,6 +21,10 @@ Point.prototype = {
         return Math.sqrt(square(point.x - this.x) + square(point.y - this.y));
     },
 
+    equals: function(point) {
+        return this.x === point.x && this.y === point.y;
+    },
+
     clone: function() {
         return new Point(this.x, this.y);
     }

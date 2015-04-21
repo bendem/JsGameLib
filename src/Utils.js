@@ -49,7 +49,7 @@ var search = function(array, prop, value) {
 };
 
 /**
- * Checks wether a number is between to other numbers.
+ * Checks wether a number is (exclusively) between to other numbers.
  *
  * @param  Number  The number to check
  * @param  Number  One of the bounds
@@ -62,6 +62,30 @@ var isBetween = function(x, x1, x2) {
     return x > xMin && x < xMax;
 };
 
+var isBetweenInclusive = function(x, x1, x2) {
+    var xMin = Math.min(x1, x2);
+    var xMax = Math.max(x1, x2);
+    return x >= xMin && x <= xMax;
+};
+
+/**
+ * Generates an array of given size filled with the given content.
+ *
+ * @param  Object The content to fill the array with
+ * @param  Number The length of the array
+ * @return Array
+ */
+var filledArray = function(content, length) {
+    return Array.apply(null, {
+        length: length
+    }).map(function() {
+        if(content instanceof Array) {
+            return content.slice(0);
+        }
+        return content;
+    });
+};
+
 /**
  * Do I need to explain random?
  *
@@ -72,6 +96,22 @@ var isBetween = function(x, x1, x2) {
 var random = function(min, max) {
     return Math.random() * (max - min) + min;
 };
+
+var randomInt = function(min, max) {
+    return Math.floor(random(min, max));
+};
+
+var choose = function(arr) {
+    return arr[randomInt(0, arr.length)];
+};
+
+var arrayRemove = function(array, elem) {
+    var index = array.indexOf(elem);
+    if (index > -1) {
+        array.splice(index, 1);
+    }
+    return array;
+}
 
 /**
  * Y u read this?

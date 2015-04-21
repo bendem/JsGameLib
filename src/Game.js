@@ -3,19 +3,15 @@ var Game = function(options) {
         id: 'canvas'
     }, options);
 
-    this.canvas = document.getElementById(this.options.id);
-    this.ctx = this.canvas.getContext('2d');
-
-    this.width = this.canvas.clientWidth;
-    this.height = this.canvas.clientHeight;
-
-    // Make sure the canvas is not distorded
-    this.canvas.width = this.width;
-    this.canvas.height = this.height;
-
     this.resourceManager = new ResourceManager();
     this.entityList = new EntityList(this);
     this.eventManager = new EventManager(this);
+
+    this.canvas = document.getElementById(this.options.id);
+    this.ctx = this.canvas.getContext('2d');
+
+    this.adjustDimensions();
+
     this.previousTime = 0;
     this.stopped = false;
     this.started = false;
@@ -99,6 +95,39 @@ Game.prototype = {
             );
         }
         return this;
-    }
+    },
+
+    /**
+     * Adjusts the size of the game to the size of the canvas.
+     */
+    adjustDimensions: function() {
+        return this
+            .setWidth(this.canvas.clientWidth)
+            .setHeight(this.canvas.clientHeight);
+    },
+
+    /**
+     * Sets the dimensions of the game.
+     *
+     * @param Vector
+     */
+    setDimensions: function(vec) {
+        return this
+            .setWidth(vec.x)
+            .setHeight(vec.y)
+            ;
+    },
+
+    setWidth: function(w) {
+        this.eventManager.handleEvent('width_changed', w);
+        this.canvas.width = this.width = w;
+        return this;
+    },
+
+    setHeight: function(h) {
+        this.eventManager.handleEvent('heigth_changed', h);
+        this.canvas.height = this.height = h;
+        return this;
+    },
 
 };

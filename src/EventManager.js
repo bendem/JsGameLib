@@ -4,10 +4,10 @@ var EventManager = function(game) {
 
     var self = this;
     window.addEventListener('resize', function() {
-        self.handleResize();
+        self.game.adjustDimensions();
     });
     window.addEventListener('deviceorientation', function() {
-        self.handleResize();
+        self.game.adjustDimensions();
     });
 };
 
@@ -51,19 +51,6 @@ EventManager.prototype = {
             h.handler.call(h.object, name, arg);
         });
     },
-
-    handleResize: function() {
-        var w = this.game.canvas.clientWidth;
-        var h = this.game.canvas.clientHeight;
-        if(w !== this.game.width) {
-            this.handleEvent('width_changed', w);
-            this.game.canvas.width = this.game.width = w;
-        }
-        if(h !== this.game.height) {
-            this.handleEvent('height_changed', h);
-            this.game.canvas.height = this.game.height = h;
-        }
-    }
 };
 
 

@@ -1,6 +1,7 @@
 var EntityList = function(game) {
     this.game = game;
     this.entities = [];
+    this.previousTime = 0;
 };
 
 EntityList.prototype = {
@@ -10,8 +11,15 @@ EntityList.prototype = {
     },
 
     update: function(time) {
+        if(!this.previousTime) {
+            // First frame is used to get the start time
+            this.previousTime = time;
+            return;
+        }
+
+        var delta = time - this.previousTime;
         this.entities.forEach(function(entity) {
-            entity.update(time, this.entities);
+            entity.update(delta, this.entities);
         }, this);
         return this;
     },
@@ -33,14 +41,7 @@ EntityList.prototype = {
             ctx.restore();
         }
 
-        // Draw shadows
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
-        this.entities.forEach(function(entity) {
-            entity.drawShadow(ctx);
-        }, this);
-
         // Draw objects
-        ctx.fillStyle = '#999';
         this.entities.forEach(function(entity) {
             ctx.save();
             entity.draw(ctx);

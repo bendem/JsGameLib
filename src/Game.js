@@ -23,7 +23,7 @@ Game.prototype = {
 
     startWithResources: function(resources) {
         if(resources) {
-            for (var i = resources.length - 1; i >= 0; i--) {
+            for(var i = resources.length - 1; i >= 0; i--) {
                 this.resourceManager.load(resources[i]);
             }
         }
@@ -80,21 +80,8 @@ Game.prototype = {
         return this.started && !this.stopped;
     },
 
-    register: function(entity, ignoreSizeChanges) {
+    register: function(entity) {
         this.entityList.register(entity);
-
-        if(!ignoreSizeChanges) {
-            this.eventManager.register(
-                'width_changed',
-                entity.containerWidthChanged,
-                this
-            );
-            this.eventManager.register(
-                'height_changed',
-                entity.containerHeightChanged,
-                this
-            );
-        }
         return this;
     },
 

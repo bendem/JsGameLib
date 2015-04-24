@@ -47,5 +47,11 @@ EntityList.prototype = {
             ctx.restore();
         }, this);
         return this;
-    }
+    },
+
+    clean: function() {
+        this.entities = this.entities.filter(function(entity) {
+            return !entity.remove;
+        });
+    },
 };

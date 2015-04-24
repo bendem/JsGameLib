@@ -20,6 +20,7 @@ var Entity = function(position, anchor) {
     }
     this.anchor = anchor;
     this.solid = false;
+    this.remove = false;
 };
 
 /**

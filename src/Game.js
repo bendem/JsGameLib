@@ -55,6 +55,7 @@ Game.prototype = {
             // http://impactjs.com/forums/impact-engine/misuse-of-requestanimationframe
             setTimeout(function() {
                 self.entityList.update(time - self.previousTime);
+                self.entityList.clean();
             }, 0);
         }
 

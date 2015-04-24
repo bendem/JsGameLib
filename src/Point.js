@@ -22,6 +22,9 @@ Point.prototype = {
     },
 
     equals: function(point) {
+        if(!point) {
+            return false;
+        }
         return this.x === point.x && this.y === point.y;
     },
 

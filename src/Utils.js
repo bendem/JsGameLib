@@ -86,6 +86,19 @@ var filledArray = function(content, length) {
     });
 };
 
+var isOneOf = function() {
+    if(arguments.length < 2) {
+        return false;
+    }
+    var e = arguments[0];
+    for(var i = 1; i < arguments.length; i++) {
+        if(e === arguments[i]) {
+            return true;
+        }
+    }
+    return false;
+};
+
 /**
  * Do I need to explain random?
  *
@@ -111,6 +124,10 @@ var arrayRemove = function(array, elem) {
         array.splice(index, 1);
     }
     return array;
+};
+
+var arrayGet = function(array, point) {
+    return array[point.x][point.y];
 };
 
 /**

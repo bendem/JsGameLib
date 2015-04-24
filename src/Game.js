@@ -3,12 +3,12 @@ var Game = function(options) {
         id: 'canvas'
     }, options);
 
+    this.canvas = document.getElementById(this.options.id);
+    this.ctx = this.canvas.getContext('2d');
+
     this.resourceManager = new ResourceManager();
     this.entityList = new EntityList(this);
     this.eventManager = new EventManager(this);
-
-    this.canvas = document.getElementById(this.options.id);
-    this.ctx = this.canvas.getContext('2d');
 
     this.adjustDimensions();
 

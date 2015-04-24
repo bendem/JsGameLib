@@ -3,22 +3,30 @@ var EventManager = function(game) {
     this.game = game;
 
     var self = this;
-    window.addEventListener('resize', function() {
+    this.register(['resize', 'deviceorientation'], function() {
         self.game.adjustDimensions();
-    });
-    window.addEventListener('deviceorientation', function() {
-        self.game.adjustDimensions();
-    });
+    }, null, window);
 };
 
 EventManager.prototype = {
+
+    /**
+     * Registers an event handler.
+     *
+     * @param  String   The event name or an iterable object containing event names
+     * @param  Function The function to execute when the event happens
+     * @param  Object   The object to provide as this to the function
+     * @param  Object   If the event to listen to is a native event, provide a target to
+     *                  register the handler on (optional).
+     * @return EventManager
+     */
     register: function(name, handler, obj, native) {
         // Registering a handler for multiple events at once
         if(name.forEach !== undefined) {
             name.forEach(function(name) {
                 this.register(name, handler, obj, native);
             }, this);
-            return;
+            return this;
         }
 
         var thing = {
@@ -31,7 +39,7 @@ EventManager.prototype = {
             // and create the list.
             if(native) {
                 var self = this;
-                this.game.canvas.addEventListener(name, function(e) {
+                native.addEventListener(name, function(e) {
                     self.handleEvent(name, e);
                 });
             }

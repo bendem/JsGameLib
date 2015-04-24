@@ -18,6 +18,7 @@ EntityList.prototype = {
         }
 
         var delta = time - this.previousTime;
+        this.previousTime = time;
         this.entities.forEach(function(entity) {
             entity.update(delta, this.entities);
         }, this);

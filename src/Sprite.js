@@ -78,6 +78,6 @@ Sprite.prototype = {
     },
 
     get: function(id) {
-        return search(this.descriptors, 'id', id);
+        return Arrays.search(this.descriptors, 'id', id);
     },
 };

@@ -31,24 +31,6 @@ var merge = function(obj1, obj2) {
 };
 
 /**
- * Searches an array of objects for an object having the provided
- * value for the provided property name.
- *
- * @param  Array  The array to search in
- * @param  String The name of the property to check
- * @param  Object The value of that property
- * @return Object The object found or null if not found
- */
-var search = function(array, prop, value) {
-    for(var i = array.length - 1; i >= 0; i--) {
-        if(array[i][prop] === value) {
-            return array[i];
-        }
-    }
-    return null;
-};
-
-/**
  * Checks wether a number is (exclusively) between to other numbers.
  *
  * @param  Number  The number to check
@@ -66,24 +48,6 @@ var isBetweenInclusive = function(x, x1, x2) {
     var xMin = Math.min(x1, x2);
     var xMax = Math.max(x1, x2);
     return x >= xMin && x <= xMax;
-};
-
-/**
- * Generates an array of given size filled with the given content.
- *
- * @param  Object The content to fill the array with
- * @param  Number The length of the array
- * @return Array
- */
-var filledArray = function(content, length) {
-    return Array.apply(null, {
-        length: length
-    }).map(function() {
-        if(content instanceof Array) {
-            return content.slice(0);
-        }
-        return content;
-    });
 };
 
 var isOneOf = function() {
@@ -112,22 +76,6 @@ var random = function(min, max) {
 
 var randomInt = function(min, max) {
     return Math.floor(random(min, max));
-};
-
-var choose = function(arr) {
-    return arr[randomInt(0, arr.length)];
-};
-
-var arrayRemove = function(array, elem) {
-    var index = array.indexOf(elem);
-    if (index > -1) {
-        array.splice(index, 1);
-    }
-    return array;
-};
-
-var arrayGet = function(array, point) {
-    return array[point.x][point.y];
 };
 
 /**

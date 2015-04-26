@@ -49,6 +49,7 @@ module.exports = function(grunt) {
             dist: {
                 src: [
                     'src/Utils.js',
+                    'src/Arrays.js',
                     'src/Vector.js',
                     'src/Point.js',
                     'src/Positions.js',

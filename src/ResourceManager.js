@@ -60,7 +60,7 @@ ResourceManager.prototype = {
     },
 
     get: function(resourcePath) {
-        var res = search(this.loaded, 'path', resourcePath);
+        var res = Arrays.search(this.loaded, 'path', resourcePath);
         if(res) {
             return res.img;
         }

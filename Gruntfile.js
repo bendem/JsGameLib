@@ -77,6 +77,7 @@ module.exports = function(grunt) {
                 futurehostile: true,
                 undef: true,
                 browser: true,
+                devel: true,
                 // TODO This is deprecated, remove it in the next jshint release
                 laxbreak: true,
             },

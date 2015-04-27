@@ -1,11 +1,19 @@
 var EntityList = function(game) {
     this.game = game;
+    this.drawableEntities = [];
+    this.updatableEntities = [];
     this.entities = [];
     this.previousTime = 0;
 };
 
 EntityList.prototype = {
     register: function(entity) {
+        if(entity.update !== undefined) {
+            this.updatableEntities.push(entity);
+        }
+        if(entity.draw !== undefined) {
+            this.drawableEntities.push(entity);
+        }
         this.entities.push(entity);
         return this;
     },
@@ -19,7 +27,7 @@ EntityList.prototype = {
 
         var delta = time - this.previousTime;
         this.previousTime = time;
-        this.entities.forEach(function(entity) {
+        this.updatableEntities.forEach(function(entity) {
             entity.update(delta, this.entities);
         }, this);
         return this;
@@ -43,16 +51,32 @@ EntityList.prototype = {
         }
 
         // Draw objects
-        this.entities.forEach(function(entity) {
-            ctx.save();
-            entity.draw(ctx);
-            ctx.restore();
-        }, this);
+        for(var layer = 0; layer < this.game.layerCount; ++layer) {
+            this.drawableEntities.forEach(function(entity) {
+                if(entity.layer !== undefined && entity.layer !== layer) {
+                    // Don't draw entities with a defined layer if it's not the
+                    // right one.
+                    return;
+                }
+                ctx.save();
+                entity.draw(ctx, layer);
+                ctx.restore();
+                // Ignoring jshing warning, the function is evaluated before the end
+                // of the loop so it doesn't matter.
+            }); // jshint ignore:line
+        }
         return this;
     },
 
     clean: function() {
+        // TODO That seems inefficient
         this.entities = this.entities.filter(function(entity) {
+            return !entity.remove;
+        });
+        this.updatableEntities = this.updatableEntities.filter(function(entity) {
+            return !entity.remove;
+        });
+        this.drawableEntities = this.drawableEntities.filter(function(entity) {
             return !entity.remove;
         });
     },

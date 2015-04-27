@@ -12,6 +12,7 @@ var Game = function(options) {
 
     this.adjustDimensions();
 
+    this.layerCount = 1;
     this.previousTime = 0;
     this.stopped = false;
     this.started = false;
@@ -83,6 +84,13 @@ Game.prototype = {
     register: function(entity) {
         this.entityList.register(entity);
         return this;
+    },
+
+    setLayerCount: function(count) {
+        if(count < 1) {
+            throw new Error("Can't have less than one layer");
+        }
+        this.layerCount = count;
     },
 
     /**

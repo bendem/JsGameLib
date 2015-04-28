@@ -8,10 +8,10 @@ var EntityList = function(game) {
 
 EntityList.prototype = {
     register: function(entity) {
-        if(entity.update !== undefined) {
+        if(typeof entity.update === 'function') {
             this.updatableEntities.push(entity);
         }
-        if(entity.draw !== undefined) {
+        if(typeof entity.draw === 'function') {
             this.drawableEntities.push(entity);
         }
         this.entities.push(entity);

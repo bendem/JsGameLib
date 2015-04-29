@@ -51,6 +51,12 @@ EventManager.prototype = {
         return this;
     },
 
+    /**
+     * Dispatches an event to the registered listeners.
+     *
+     * @param String Name of the event
+     * @param Object Argument to pass to the listeners
+     */
     handleEvent: function(name, arg) {
         if(!this.handlers.hasOwnProperty(name)) {
             return;
@@ -60,5 +66,3 @@ EventManager.prototype = {
         });
     },
 };
-
-

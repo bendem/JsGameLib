@@ -1,4 +1,9 @@
-// Point is immutable
+/**
+ * An immutable 2D point.
+ *
+ * @param Number x coordinate
+ * @param Number y coordinate
+ */
 var Point = function(x, y) {
     this.x = x;
     this.y = y;

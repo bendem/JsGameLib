@@ -60,6 +60,23 @@ var Arrays = {
     },
 
     /**
+     * Returns a value in the array, if an element in the array
+     * satisfies the provided testing function. Otherwise undefined
+     * is returned.
+     *
+     * @param  Array    The array to search in
+     * @param  Function A function to test each element of the array with
+     * @return Object|undefined
+     */
+    first: function(arr, test) {
+        for(var i = 0; i < arr.length; i++) {
+            if(test(arr[i], i, arr)) {
+                return arr[i];
+            }
+        }
+    },
+
+    /**
      * Removes all instances of an element from an array.
      *
      * @param  Array The array

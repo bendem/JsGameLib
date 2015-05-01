@@ -26,6 +26,21 @@ Point.prototype = {
         return Math.sqrt(square(point.x - this.x) + square(point.y - this.y));
     },
 
+    scale: function(factor, factorY) {
+        if(factor instanceof Vector) {
+            return new Point(this.x * factor.x, this.y * factor.y);
+        }
+        factorY = factorY || factor;
+        return new Point(this.x * factor, this.y * factorY);
+    },
+
+    getAngle: function(point) {
+        var deltaX = this.x - point.x;
+        var deltaY = this.y - point.y;
+
+        return Math.atan2(deltaY, deltaX);
+    },
+
     equals: function(point) {
         if(!point) {
             return false;

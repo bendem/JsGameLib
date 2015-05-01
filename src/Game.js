@@ -82,6 +82,13 @@ Game.prototype = {
     },
 
     register: function(entity) {
+        if(entity.forEach) {
+            entity.forEach(function(e) {
+                this.register(e);
+            }, this);
+            return this;
+        }
+
         this.entityList.register(entity);
         return this;
     },

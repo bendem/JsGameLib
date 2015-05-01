@@ -15,10 +15,10 @@ var Draw = {
 
     rect: function(ctx, pos, width, height) {
         ctx.rect(
-            this.topLeft.x,
-            this.topLeft.y,
-            this.width,
-            this.height
+            pos.x,
+            pos.y,
+            width,
+            height
         );
         return ctx;
     },
@@ -49,9 +49,9 @@ var Draw = {
 
     text: function(ctx, pos, text) {
         ctx.fillText(
-            this.text,
-            this.pos.x,
-            this.pos.y
+            text,
+            pos.x,
+            pos.y
         );
         return ctx;
     },

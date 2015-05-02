@@ -26,10 +26,24 @@ EntityList.prototype = {
         }
 
         var delta = time - this.previousTime;
-        this.previousTime = time;
-        this.updatableEntities.forEach(function(entity) {
-            entity.update(delta, this.entities);
-        }, this);
+
+        // We update each entity every time 16 ms has passed. That way, in
+        // case of delay (i.e. tab hidden causing requestAnimationFrame to
+        // delay the animation), the game is updated uniformly instead of
+        // having the entities catching up one after another (which could
+        // lead to inconsistencies).
+        while(delta > 16) {
+            delta -= 16;
+            this.previousTime += 16;
+
+            this.updatableEntities.forEach(function(entity) {
+                entity.update(this.entities);
+            }, this);
+
+            // Cleanup each time to make sure we are not updating removed entities
+            this.clean();
+        }
+
         return this;
     },
 

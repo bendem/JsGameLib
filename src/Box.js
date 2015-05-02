@@ -29,5 +29,24 @@ Box.prototype = {
     },
     getBottomRight: function() {
         return new Point(this.getRightX(), this.getBottomY());
-    }
+    },
+    getCenter: function() {
+        return new Point(this.topLeft.x + this.width / 2, this.topLeft.y + this.height / 2);
+    },
+
+    squaredDistance: function(point) {
+        var deltaX = Math.max(
+            Math.abs(point.x - (this.topLeft.x + this.width / 2)) - this.width / 2,
+            0
+        );
+        var deltaY = Math.max(
+            Math.abs(point.y - (this.topLeft.y + this.height / 2)) - this.height / 2,
+            0
+        );
+        return square(deltaX) + square(deltaY);
+    },
+
+    distance: function(point) {
+        return Math.sqrt(this.squaredDistance(point));
+    },
 };

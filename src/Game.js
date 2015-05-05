@@ -10,6 +10,8 @@ var Game = function(options) {
     this.entityList = new EntityList(this);
     this.eventManager = new EventManager(this);
 
+    this.input = new Input(this);
+
     this.adjustDimensions();
 
     this.layerCount = 1;

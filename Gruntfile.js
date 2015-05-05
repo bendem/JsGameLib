@@ -63,6 +63,7 @@ module.exports = function(grunt) {
                     'src/Text.js',
                     'src/EntityList.js',
                     'src/EventManager.js',
+                    'src/Input.js',
                     'src/Game.js',
                 ],
                 dest: 'dist/<%= pkg.name %>.js'

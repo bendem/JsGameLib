@@ -1,11 +1,6 @@
 var EventManager = function(game) {
     this.handlers = {};
     this.game = game;
-
-    var self = this;
-    this.register(['resize', 'deviceorientation'], function() {
-        self.game.adjustDimensions();
-    }, null, window);
 };
 
 EventManager.prototype = {
@@ -34,19 +29,22 @@ EventManager.prototype = {
             object: obj
         };
 
-        if(!this.handlers.hasOwnProperty(name)) {
+        // Register native events with a different name
+        var actualName = (native ? 'native-' : '') + name;
+
+        if(!this.handlers.hasOwnProperty(actualName)) {
             // If not handled already, register the handler
             // and create the list.
             if(native) {
                 var self = this;
                 native.addEventListener(name, function(e) {
-                    self.handleEvent(name, e);
+                    self.handleEvent(actualName, e);
                 });
             }
-            this.handlers[name] = [thing];
+            this.handlers[actualName] = [thing];
         } else {
             // Else, just add it to the list
-            this.handlers[name].push(thing);
+            this.handlers[actualName].push(thing);
         }
         return this;
     },
@@ -61,8 +59,16 @@ EventManager.prototype = {
         if(!this.handlers.hasOwnProperty(name)) {
             return;
         }
-        this.handlers[name].forEach(function(h) {
-            h.handler.call(h.object, name, arg);
-        });
+
+        var i, h, cancelled = false;
+        for(i in this.handlers[name]) {
+            h = this.handlers[name][i];
+            cancelled |= h.handler.call(h.object, name, arg);
+        }
+
+        if(cancelled && name.startsWith('native-')) {
+            arg.preventDefault();
+        }
+        return cancelled;
     },
 };

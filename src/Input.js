@@ -71,19 +71,19 @@ Input.prototype = {
 
     handleMouseMove: function(name, event) {
         if(Math.abs(event.movementX) + Math.abs(event.movementY) <= 1) {
-            event.preventDefault();
             return;
         }
+
         var arg = {
             button: event.which,
-            position: new Point(event.x, event.y),
-            diff: new Vector(event.x - this.mousePosition.x, event.y - this.mousePosition.y),
+            position: new Point(event.offsetX, event.offsetY),
+            diff: new Vector(event.offsetX - this.mousePosition.x, event.offsetY - this.mousePosition.y),
         };
         var cancelled = this.game.eventManager.handleEvent('mouse_move', arg);
 
         if(!cancelled) {
-            this.mousePosition.x = event.x;
-            this.mousePosition.y = event.y;
+            this.mousePosition.x = event.offsetX;
+            this.mousePosition.y = event.offsetY;
         }
         return cancelled;
     },
@@ -146,7 +146,11 @@ Input.prototype = {
             return;
         }
 
-        if(this.game.eventManager.handleEvent(this.whichToString(event.which) + '_down')) {
+        var cancelled = this.game.eventManager.handleEvent(
+            this.whichToString(event.which) + '_down',
+            this.mousePosition.clone()
+        );
+        if(cancelled) {
             return true;
         }
         this.buttonsDown.push(event.which);
@@ -157,7 +161,11 @@ Input.prototype = {
             return;
         }
 
-        if(this.game.eventManager.handleEvent(this.whichToString(event.which) + '_up')) {
+        var cancelled = this.game.eventManager.handleEvent(
+            this.whichToString(event.which) + '_up',
+            this.mousePosition.clone()
+        );
+        if(cancelled) {
             return true;
         }
         Arrays.remove(this.buttonsDown, event.which);

@@ -100,6 +100,7 @@ Game.prototype = {
             throw new Error("Can't have less than one layer");
         }
         this.layerCount = count;
+        return this;
     },
 
     /**

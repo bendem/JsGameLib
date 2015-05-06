@@ -3,7 +3,9 @@ var Input = function(game) {
     this.keysDown = [];
     this.buttonsDown = [];
     this.touches = [];
+    this.mousePosition = new Point();
 
+    game.eventManager.register('mousemove', this.handleMouseMove, this, game.canvas);
     game.eventManager.register('keyup', this.handleKeyUp, this, document);
     game.eventManager.register('keydown', this.handleKeyDown, this, document);
     game.eventManager.register('mousedown', this.handleButtonPressed, this, game.canvas);
@@ -13,17 +15,18 @@ var Input = function(game) {
     game.eventManager.register('mouseover', this.handleMouseComesOrLeaves, this, game.canvas);
 };
 
-Input.Modifier = {
+Input.Modifier = Object.freeze({
     CTRL:  0x01,
     ALT:   0x02,
     SHIFT: 0x04,
-};
+});
 
-Input.Button = {
-    LEFT:   0x01,
-    RIGHT:  0x02,
-    MIDDLE: 0x04,
-};
+Input.Button = Object.freeze({
+    NONE:   0,
+    LEFT:   1,
+    MIDDLE: 2,
+    RIGHT:  3,
+});
 
 Input.prototype = {
     isKeyDown: function(key) {
@@ -42,26 +45,8 @@ Input.prototype = {
         return true;
     },
 
-    isButtonDown: function(buttons) {
-        for(var button in Input.Button) {
-            if(buttons & Input.Button[button]
-                    && this.buttonsDown.indexOf(this.buttonToCode(Input.Button[button])) === -1) {
-                return false;
-            }
-            buttons &= ~Input.Button[button];
-        }
-        return buttons === 0;
-    },
-
-    buttonToCode: function(button) {
-        switch (button) {
-            case Input.Button.LEFT:
-                return 1;
-            case Input.Button.MIDDLE:
-                return 2;
-            case Input.Button.RIGHT:
-                return 3;
-        }
+    isButtonDown: function(button) {
+        return this.buttonsDown.indexOf(button) !== -1;
     },
 
     modifiersToKeyCodes: function(modifiers) {
@@ -82,6 +67,25 @@ Input.prototype = {
             }
         }
         return keyCodes;
+    },
+
+    handleMouseMove: function(name, event) {
+        if(Math.abs(event.movementX) + Math.abs(event.movementY) <= 1) {
+            event.preventDefault();
+            return;
+        }
+        var arg = {
+            button: event.which,
+            position: new Point(event.x, event.y),
+            diff: new Vector(event.x - this.mousePosition.x, event.y - this.mousePosition.y),
+        };
+        var cancelled = this.game.eventManager.handleEvent('mouse_move', arg);
+
+        if(!cancelled) {
+            this.mousePosition.x = event.x;
+            this.mousePosition.y = event.y;
+        }
+        return cancelled;
     },
 
     handleKeyUp: function(name, event) {
@@ -131,7 +135,7 @@ Input.prototype = {
     },
 
     handleButtonPressed: function(name, event) {
-        if(this.buttonsDown.indexOf(this.buttonToCode(Input.Button.RIGHT)) !== -1) {
+        if(this.buttonsDown.indexOf(Input.Button.RIGHT) !== -1) {
             // If the context menu is open, the click will close it and
             // break expected behavior
             this.buttonsDown = [];
@@ -142,7 +146,7 @@ Input.prototype = {
             return;
         }
 
-        if(this.game.eventManager.handleEvent(this.button(event.which) + '_down')) {
+        if(this.game.eventManager.handleEvent(this.whichToString(event.which) + '_down')) {
             return true;
         }
         this.buttonsDown.push(event.which);
@@ -153,7 +157,7 @@ Input.prototype = {
             return;
         }
 
-        if(this.game.eventManager.handleEvent(this.button(event.which) + '_up')) {
+        if(this.game.eventManager.handleEvent(this.whichToString(event.which) + '_up')) {
             return true;
         }
         Arrays.remove(this.buttonsDown, event.which);
@@ -163,14 +167,11 @@ Input.prototype = {
         this.buttonsDown = [];
     },
 
-    button: function(which) {
-        switch(event.which) {
-            case 1:
-                return 'button_left';
-            case 2:
-                return 'button_middle';
-            case 3:
-                return 'button_right';
+    whichToString: function(which) {
+        for(var name in Input.Button) {
+            if(Input.Button[name] === which) {
+                return 'button_' + name.toLowerCase();
+            }
         }
     },
 };

@@ -8,8 +8,8 @@
  * @param Number Y component of the vector
  */
 var Vector = function(x, y) {
-    this.x = x;
-    this.y = y;
+    this.x = x || 0;
+    this.y = y || 0;
 };
 
 Vector.prototype = {

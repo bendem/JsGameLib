@@ -8,13 +8,13 @@ var Game = function(options) {
 
     this.resourceManager = new ResourceManager();
     this.entityList = new EntityList(this);
+    this.renderer = new Renderer(this, this.entityList);
     this.eventManager = new EventManager(this);
 
     this.input = new Input(this);
 
     this.adjustDimensions();
 
-    this.layerCount = 1;
     this.previousTime = 0;
     this.stopped = false;
     this.started = false;
@@ -51,7 +51,7 @@ Game.prototype = {
             // First frame only gets the time
             this.previousTime = time;
         } else {
-            this.entityList.draw(this.ctx);
+            this.renderer.render(this.ctx);
 
             // Execute game logic in a callback so that it does not
             // prevent the animation frame from ending.
@@ -91,14 +91,6 @@ Game.prototype = {
         }
 
         this.entityList.register(entity);
-        return this;
-    },
-
-    setLayerCount: function(count) {
-        if(count < 1) {
-            throw new Error("Can't have less than one layer");
-        }
-        this.layerCount = count;
         return this;
     },
 

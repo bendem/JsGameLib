@@ -78,6 +78,11 @@ Sprite.prototype = {
     },
 
     get: function(id) {
+        // TODO Return an object which is able to draw itself
+        // So it can be used without the parent sprite at hand like
+        // var part = sprite.get('id');
+        // ....
+        // part.draw(ctx, position);
         return Arrays.search(this.descriptors, 'id', id);
     },
 };

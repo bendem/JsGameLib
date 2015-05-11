@@ -60,9 +60,8 @@ EventManager.prototype = {
             return;
         }
 
-        var i, h, cancelled = false;
-        for(i in this.handlers[name]) {
-            h = this.handlers[name][i];
+        var h, cancelled = false;
+        for(h of this.handlers[name]) {
             cancelled |= h.handler.call(h.object, name, arg);
         }
 

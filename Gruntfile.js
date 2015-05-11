@@ -38,6 +38,7 @@ module.exports = function(grunt) {
                     mark: "'",
                     escape: true
                 },
+                esnext: true,
             },
             all: ['src/*.js']
         },
@@ -81,6 +82,7 @@ module.exports = function(grunt) {
                 undef: true,
                 browser: true,
                 devel: true,
+                esnext: true,
                 // TODO This is deprecated, remove it in the next jshint release
                 laxbreak: true,
             },

@@ -112,7 +112,7 @@ Game.prototype = {
         return this
             .setWidth(vec.x)
             .setHeight(vec.y)
-            ;
+        ;
     },
 
     setWidth: function(w) {

@@ -33,12 +33,16 @@ Sprite.prototype = {
         return this;
     },
 
-    draw: function(ctx, id, position) {
-        var spritePart = this.get(id);
-        if(spritePart === null) {
+    draw: function(ctx, part, position) {
+        if(!(id instanceof SpritePart)) {
+            part = this.get(id);
+        }
+
+        if(part === null) {
+            // TODO Error?
             return this;
         }
-        return this.drawPart(ctx, spritePart, position);
+        return this.drawPart(ctx, part, position);
     },
 
     // Use this if you don't want the lookup time
@@ -78,11 +82,21 @@ Sprite.prototype = {
     },
 
     get: function(id) {
-        // TODO Return an object which is able to draw itself
-        // So it can be used without the parent sprite at hand like
-        // var part = sprite.get('id');
-        // ....
-        // part.draw(ctx, position);
-        return Arrays.search(this.descriptors, 'id', id);
+        return new SpritePart(this, Arrays.search(this.descriptors, 'id', id));
     },
+};
+
+var SpritePart = function(sprite, descriptor) {
+    this.sprite = sprite;
+    this.id = descriptor.id;
+    this.position = descriptor.position;
+    this.width = descriptor.width;
+    this.height = descriptor.height;
+};
+
+SpritePart.prototype = {
+    draw: function(ctx, position) {
+        this.sprite.drawPart(ctx, this, position);
+        return this;
+    }
 };

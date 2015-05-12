@@ -34,8 +34,8 @@ Sprite.prototype = {
     },
 
     draw: function(ctx, part, position) {
-        if(!(id instanceof SpritePart)) {
-            part = this.get(id);
+        if(!(part instanceof SpritePart)) {
+            part = this.get(part);
         }
 
         if(part === null) {

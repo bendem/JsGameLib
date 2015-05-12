@@ -107,4 +107,4 @@ var assert = function(assertion) {
     if(!assertion) {
         throw new Error('Assertion failed');
     }
-}
+};

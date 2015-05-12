@@ -102,3 +102,9 @@ var sign = function(x) {
 var square = function(x) {
     return x * x;
 };
+
+var assert = function(assertion) {
+    if(!assertion) {
+        throw new Error('Assertion failed');
+    }
+}

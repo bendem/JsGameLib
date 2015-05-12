@@ -70,20 +70,24 @@ Input.prototype = {
     },
 
     handleMouseMove: function(name, event) {
-        if(Math.abs(event.movementX) + Math.abs(event.movementY) <= 1) {
+        // Mozilla compat
+        // TODO Do I really want to handle compatibility?
+        var moveX = event.movementX || event.mozMovementX;
+        var moveY = event.movementY || event.mozMovementY;
+
+        if(Math.abs(moveX) + Math.abs(moveY) <= 1) {
             return;
         }
-
         var arg = {
             button: event.which,
-            position: new Point(event.offsetX, event.offsetY),
-            diff: new Vector(event.offsetX - this.mousePosition.x, event.offsetY - this.mousePosition.y),
+            position: new Point(event.clientX, event.clientY),
+            diff: new Vector(event.clientX - this.mousePosition.x, event.clientY - this.mousePosition.y),
         };
         var cancelled = this.game.eventManager.handleEvent('mouse_move', arg);
 
         if(!cancelled) {
-            this.mousePosition.x = event.offsetX;
-            this.mousePosition.y = event.offsetY;
+            this.mousePosition.x = event.clientX;
+            this.mousePosition.y = event.clientY;
         }
         return cancelled;
     },

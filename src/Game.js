@@ -1,5 +1,5 @@
 var Game = function(options) {
-    this.options = merge({
+    this.options = Utils.merge({
         id: 'canvas'
     }, options);
 

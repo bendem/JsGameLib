@@ -19,7 +19,7 @@ Entity.prototype = {
      *
      * @param CanvasRenderingContext2D The context to work on
      */
-    draw: emptyFunction,
+    draw: Utils.emptyFunction,
 
     /**
      * Updates the entity.
@@ -28,5 +28,5 @@ Entity.prototype = {
      * @param Number The time at which the frame started
      * @param Array  An array containing all objects handled by the game
      */
-    update: emptyFunction,
+    update: Utils.emptyFunction,
 };

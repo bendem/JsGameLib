@@ -22,7 +22,7 @@ var Arrays = {
      * @return Object The chosen value
      */
     choose: function(arr) {
-        return arr[randomInt(0, arr.length)];
+        return arr[Utils.randomInt(0, arr.length)];
     },
 
     /**

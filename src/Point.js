@@ -23,7 +23,11 @@ Point.prototype = {
     },
 
     distance: function(point) {
-        return Math.sqrt(square(point.x - this.x) + square(point.y - this.y));
+        return Math.sqrt(this.squaredDistance(point));
+    },
+
+    squaredDistance: function(point) {
+        return Utils.square(point.x - this.x) + Utils.square(point.y - this.y);
     },
 
     scale: function(factor, factorY) {

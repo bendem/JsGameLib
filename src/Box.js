@@ -43,7 +43,7 @@ Box.prototype = {
             Math.abs(point.y - (this.topLeft.y + this.height / 2)) - this.height / 2,
             0
         );
-        return square(deltaX) + square(deltaY);
+        return Utils.square(deltaX) + Utils.square(deltaY);
     },
 
     distance: function(point) {

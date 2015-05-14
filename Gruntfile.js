@@ -58,7 +58,6 @@ module.exports = function(grunt) {
                     'src/Sprite.js',
                     'src/ResourceManager.js',
                     'src/Box.js',
-                    'src/Entity.js',
                     'src/Rectangle.js',
                     'src/Circle.js',
                     'src/Text.js',

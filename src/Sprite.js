@@ -5,7 +5,7 @@
  */
 var Sprite = function(img) {
     this.img = img;
-    this.descriptors = [];
+    this.parts = {};
 };
 
 Sprite.prototype = {
@@ -23,13 +23,7 @@ Sprite.prototype = {
     },
 
     registerId: function(id, position, width, height) {
-        this.descriptors.push({
-            id: id,
-            position: position,
-            width: width,
-            height: height,
-        });
-
+        this.parts[id] = new SpritePart(this, position, width, height);
         return this;
     },
 
@@ -82,16 +76,15 @@ Sprite.prototype = {
     },
 
     get: function(id) {
-        return new SpritePart(this, Arrays.search(this.descriptors, 'id', id));
+        return this.parts[id];
     },
 };
 
-var SpritePart = function(sprite, descriptor) {
+var SpritePart = function(sprite, pos, width, height) {
     this.sprite = sprite;
-    this.id = descriptor.id;
-    this.position = descriptor.position;
-    this.width = descriptor.width;
-    this.height = descriptor.height;
+    this.position = pos;
+    this.width = width;
+    this.height = height;
 };
 
 SpritePart.prototype = {

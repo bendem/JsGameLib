@@ -13,7 +13,7 @@ ContextWrapper.prototype = {
     },
 
     circle: function(pos, radius) {
-        return this.ctx.arc(
+        return this.arc(
             pos.x,
             pos.y,
             radius,
@@ -26,7 +26,7 @@ ContextWrapper.prototype = {
     },
 
     rectangle: function(pos, width, height) {
-        return this.ctx.rect(
+        return this.rect(
             pos.x,
             pos.y,
             width,
@@ -39,7 +39,7 @@ ContextWrapper.prototype = {
     },
 
     roundedRect: function(pos, width, height, radius) {
-        return this.ctx
+        return this
             // start after top left
             .moveTo(pos.x + radius, pos.y)
 
@@ -60,7 +60,7 @@ ContextWrapper.prototype = {
     },
 
     text: function(pos, text) {
-        return this.ctx.fillText(
+        return this.fillText(
             text,
             pos.x,
             pos.y

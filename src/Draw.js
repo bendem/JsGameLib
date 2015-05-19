@@ -1,58 +1,87 @@
-var Draw = {
-    circle: function(ctx, pos, radius) {
-        ctx.arc(
+var ContextWrapper = function(ctx) {
+    this.ctx = ctx;
+};
+
+ContextWrapper.prototype = {
+    set: function(name, val) {
+        this.ctx[name] = val;
+        return this;
+    },
+
+    get: function(name) {
+        return this.ctx[name];
+    },
+
+    circle: function(pos, radius) {
+        return this.ctx.arc(
             pos.x,
             pos.y,
             radius,
             0, 2 * Math.PI
         );
-        return ctx;
     },
 
-    square: function(ctx, pos, width) {
-        return Draw.rect(ctx, pos, width, width);
+    square: function(pos, width) {
+        return this.rectangle(pos, width, width);
     },
 
-    rect: function(ctx, pos, width, height) {
-        ctx.rect(
+    rectangle: function(pos, width, height) {
+        return this.ctx.rect(
             pos.x,
             pos.y,
             width,
             height
         );
-        return ctx;
     },
 
-    roundedSquare: function(ctx, pos, width) {
-        return Draw.roundedRect(ctx, pos, width, width);
+    roundedSquare: function(pos, width) {
+        return this.roundedRect(pos, width, width);
     },
 
-    roundedRect: function(ctx, pos, width, height, radius) {
-        // start after top left
-        ctx.moveTo(pos.x + radius, pos.y);
+    roundedRect: function(pos, width, height, radius) {
+        return this.ctx
+            // start after top left
+            .moveTo(pos.x + radius, pos.y)
 
-        // top right
-        ctx.lineTo(pos.x + width - radius, pos.y);
-        ctx.arcTo(pos.x + width, pos.y, pos.x + width, pos.y + radius, radius);
-        // bottom right
-        ctx.lineTo(pos.x + width, pos.y + height - radius);
-        ctx.arcTo(pos.x + width, pos.y + height, pos.x + width - radius, pos.y + height, radius);
+            // top right
+            .lineTo(pos.x + width - radius, pos.y)
+            .arcTo(pos.x + width, pos.y, pos.x + width, pos.y + radius, radius)
+            // bottom right
+            .lineTo(pos.x + width, pos.y + height - radius)
+            .arcTo(pos.x + width, pos.y + height, pos.x + width - radius, pos.y + height, radius)
 
-        // bottom left
-        ctx.lineTo(pos.x + radius, pos.y + height);
-        ctx.arcTo(pos.x, pos.y + height, pos.x, pos.y + height - radius, radius);
+            // bottom left
+            .lineTo(pos.x + radius, pos.y + height)
+            .arcTo(pos.x, pos.y + height, pos.x, pos.y + height - radius, radius)
 
-        // top left
-        ctx.lineTo(pos.x, pos.y + radius);
-        ctx.arcTo(pos.x, pos.y, pos.x + radius, pos.y, radius);
+            // top left
+            .lineTo(pos.x, pos.y + radius)
+            .arcTo(pos.x, pos.y, pos.x + radius, pos.y, radius);
     },
 
-    text: function(ctx, pos, text) {
-        ctx.fillText(
+    text: function(pos, text) {
+        return this.ctx.fillText(
             text,
             pos.x,
             pos.y
         );
-        return ctx;
     },
 };
+
+(function() {
+    // Don't clutter global namespace
+    var proto = CanvasRenderingContext2D.prototype;
+    for(var name in proto) {
+        if(typeof proto[name] !== 'function') {
+            console.log(name);
+            continue;
+        }
+
+        ContextWrapper.prototype[name] = (function(name) {
+            return function() {
+                var ret = proto[name].apply(this.ctx, arguments);
+                return ret === undefined ? this : ret;
+            };
+        })(name); // jshint ignore:line
+    }
+})();

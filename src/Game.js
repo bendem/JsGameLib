@@ -4,7 +4,7 @@ var Game = function(options) {
     }, options);
 
     this.canvas = document.getElementById(this.options.id);
-    this.ctx = this.canvas.getContext('2d');
+    this.ctx = new ContextWrapper(this.canvas.getContext('2d'));
 
     this.resourceManager = new ResourceManager();
     this.entityList = new EntityList(this);

@@ -42,7 +42,6 @@ ContextWrapper.prototype = {
         return this
             // start after top left
             .moveTo(pos.x + radius, pos.y)
-
             // top right
             .lineTo(pos.x + width - radius, pos.y)
             .arcTo(pos.x + width, pos.y, pos.x + width, pos.y + radius, radius)
@@ -72,8 +71,14 @@ ContextWrapper.prototype = {
     // Don't clutter global namespace
     var proto = CanvasRenderingContext2D.prototype;
     for(var name in proto) {
-        if(typeof proto[name] !== 'function') {
-            console.log(name);
+        try {
+            if(typeof proto[name] !== 'function') {
+                console.log(name);
+                continue;
+            }
+        } catch(e) {
+            // https://code.google.com/p/chromium/issues/detail?id=491203
+            console.warn(e);
             continue;
         }
 

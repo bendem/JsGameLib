@@ -139,6 +139,13 @@ Input.prototype = {
     },
 
     handleButtonPressed: function(name, event) {
+        if(this.mousePosition.x !== event.clientX) {
+            this.mousePosition.x = event.clientX;
+        }
+        if(this.mousePosition.y !== event.clientY) {
+            this.mousePosition.y = event.clientY;
+        }
+
         if(this.buttonsDown.indexOf(Input.Button.RIGHT) !== -1) {
             // If the context menu is open, the click will close it and
             // break expected behavior

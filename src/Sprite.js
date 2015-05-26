@@ -70,7 +70,7 @@ Sprite.prototype = {
                 .beginPath()
                 // Text shadow
                 .beginPath()
-                .rect(position.x, position.y, w + 10, 20)
+                .rect(position.x, position.y + part.width, w + 10, 20)
                 .set('fillStyle', 'rgba(0, 0, 0, 0.4)')
                 .fill()
                 .set('strokeStyle', '#111')
@@ -80,7 +80,7 @@ Sprite.prototype = {
                 .set('fillStyle', '#fff')
                 .set('textAlign', 'center')
                 .set('font', '15px')
-                .fillText(id, position.x + w / 2 + 5, position.y + 15)
+                .fillText(id, position.x + w / 2 + 5, position.y + part.width + 15)
                 ;
 
             ctx.restore();

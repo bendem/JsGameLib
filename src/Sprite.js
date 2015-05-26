@@ -52,24 +52,37 @@ Sprite.prototype = {
             part.width,
             part.height
         );
+
         if(Game.debug) {
             ctx.save();
-            // Box
-            ctx.beginPath();
-            ctx.strokeStyle = 'rgba(20, 0, 60, 0.3)';
-            var w = ctx.measureText(part.id).width;
-            ctx.rect(position.x, position.y, part.width, part.height);
-            ctx.stroke();
-            // Text shadow
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-            ctx.beginPath();
-            ctx.rect(position.x, position.y, w + 10, 20);
-            ctx.fill();
-            // Name
-            ctx.fillStyle = '#eee';
-            ctx.textAlign = 'center';
-            ctx.font = '15px';
-            ctx.fillText(part.id, position.x + w / 2 + 5, position.y + 15);
+
+            // Id lookup
+            var id;
+            for(var i in this.parts) {
+                if(this.parts[i].position.equals(part.position)) {
+                    id = i;
+                    break;
+                }
+            }
+
+            var w = ctx.measureText(id).width;
+            ctx
+                .beginPath()
+                // Text shadow
+                .beginPath()
+                .rect(position.x, position.y, w + 10, 20)
+                .set('fillStyle', 'rgba(0, 0, 0, 0.4)')
+                .fill()
+                .set('strokeStyle', '#111')
+                .stroke()
+
+                // Name
+                .set('fillStyle', '#fff')
+                .set('textAlign', 'center')
+                .set('font', '15px')
+                .fillText(id, position.x + w / 2 + 5, position.y + 15)
+                ;
+
             ctx.restore();
         }
         return this;

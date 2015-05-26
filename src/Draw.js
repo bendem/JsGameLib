@@ -78,7 +78,7 @@ ContextWrapper.prototype = {
             }
         } catch(e) {
             // https://code.google.com/p/chromium/issues/detail?id=491203
-            console.warn(e);
+            // console.warn(e);
             continue;
         }
 

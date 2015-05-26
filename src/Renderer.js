@@ -50,19 +50,29 @@ Renderer.prototype = {
     },
 
     debugInfo: function(ctx) {
-        if(Game.debug) {
-            ctx.save();
-            ctx.font = '20px sans-serif';
-            var w = ctx.measureText('debug: on').width;
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
-            ctx.beginPath();
-            ctx.rect(this.game.width - w - 20, this.game.height - 30, w + 20, 30);
-            ctx.fill();
-            ctx.fillStyle = '#eee';
-            ctx.textAlign = 'end';
-            ctx.fillText('debug: on', this.game.width - 10, this.game.height - 7);
-            ctx.restore();
+        if(!Game.debug) {
+            return;
         }
+        ctx.save();
+
+        var w = ctx
+            .set('font', '20px sans-serif')
+            .measureText('debug: on')
+            .width;
+
+        ctx
+            .beginPath()
+            .rect(this.game.width - w - 20, this.game.height - 30, w + 20, 30)
+            .set('fillStyle', 'rgba(0, 0, 0, 0.4)')
+            .fill()
+            .stroke()
+
+            .set('textAlign', 'end')
+            .set('fillStyle', '#ddd')
+            .fillText('debug: on', this.game.width - 10, this.game.height - 7)
+            ;
+
+        ctx.restore();
     },
 
     sort: function(drawInfo) {

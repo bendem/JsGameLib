@@ -2,6 +2,7 @@ var Renderer = function(game, entityList) {
     this.game = game;
     this.entityList = entityList;
     this.functions = {};
+    this.skipErrors = false;
 };
 
 Renderer.prototype = {
@@ -40,11 +41,19 @@ Renderer.prototype = {
         // Sort by layer and draw
         this.sort(info).forEach(function(info) {
             ctx.save();
-            this.functions[info.name].draw.call(this.functions[info.name].object, ctx, info);
+            var drawer = this.functions[info.name];
+            if(!drawer) {
+                if(!this.skipErrors) {
+                    console.warn('No drawing informations for ', info.name);
+                }
+                return;
+            }
+            drawer.draw.call(drawer.object, ctx, info);
             ctx.restore();
         }, this);
 
         this.debugInfo(ctx);
+        this.skipErrors = true;
 
         return this;
     },

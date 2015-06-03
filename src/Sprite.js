@@ -81,7 +81,7 @@ Sprite.prototype = {
                 .set('textAlign', 'center')
                 .set('font', '15px')
                 .fillText(id, position.x + w / 2 + 5, position.y + part.width + 15)
-                ;
+            ;
 
             ctx.restore();
         }

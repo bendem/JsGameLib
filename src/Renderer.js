@@ -79,7 +79,7 @@ Renderer.prototype = {
             .set('textAlign', 'end')
             .set('fillStyle', '#ddd')
             .fillText('debug: on', this.game.width - 10, this.game.height - 7)
-            ;
+        ;
 
         ctx.restore();
     },
